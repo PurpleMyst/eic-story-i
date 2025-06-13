@@ -1,0 +1,10 @@
+[package]
+name = "problem01"
+version = "1.0.0"
+edition = "2024"
+
+[dependencies]
+rayon = "1.10.0"
+
+[profile.release]
+debug = true
