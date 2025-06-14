@@ -42,6 +42,7 @@ macro_rules! define_part_benches {
 #[rustfmt::skip]
 define_part_benches!(
     problem01,
+    problem02,
 );
 
 criterion_main!(full_benches, part_benches);
@@ -49,4 +50,5 @@ criterion_main!(full_benches, part_benches);
 #[rustfmt::skip]
 define_full_benches!(
     problem01,
+    problem02,
 );

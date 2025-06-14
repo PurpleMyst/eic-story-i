@@ -91,7 +91,7 @@ def in_root_dir(f):
 @wrap_errors((requests.HTTPError,))
 def start_solve(problem_num: int) -> None:
     "Start solving a problem."
-    crate = f"problem{problem_num:02}"
+    crate = f"problem{int(problem_num):02}"
     crate_path = Path(crate)
 
     if crate_path.exists():
@@ -127,7 +127,6 @@ def start_solve(problem_num: int) -> None:
 
     benches = Path("benchmark", "benches")
     add_line(benches / "criterion.rs", f"    {crate},")
-    add_line(benches / "iai.rs", f"    {crate}: {crate}_solve,")
 
     run(("git", "add", crate))
 

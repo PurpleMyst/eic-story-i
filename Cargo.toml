@@ -5,4 +5,12 @@ members = [
     "problem01",
 
     "benchmark",
+
+    "problem02",
 ]
+
+[profile.release]
+debug = true
+
+[workspace.metadata.problem02]
+start_time = 2025-06-14T17:00:35.785515
