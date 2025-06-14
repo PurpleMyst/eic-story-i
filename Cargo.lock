@@ -35,6 +35,7 @@ dependencies = [
  "criterion",
  "problem01",
  "problem02",
+ "problem03",
 ]
 
 [[package]]
@@ -287,6 +288,10 @@ dependencies = [
  "scan_fmt",
  "slab",
 ]
+
+[[package]]
+name = "problem03"
+version = "0.1.0"
 
 [[package]]
 name = "proc-macro2"
