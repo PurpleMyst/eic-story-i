@@ -70,42 +70,37 @@ fn eni_part2(n: u64, exp: u64, mod_: u64) -> u64 {
 
 fn eni_part3(n: u64, exp: u64, r#mod: u16) -> u64 {
     let mut score = 1;
-    let mut l = Vec::with_capacity(r#mod as usize);
+    let mut prefix_sums = Vec::new();
     let mut sum = 0;
 
     let mut last_seen_at = vec![u16::MAX; r#mod as usize];
-    let mut len = 0;
 
-    while len < exp as usize {
+    prefix_sums.push(sum);
+
+    while prefix_sums.len() - 1 < exp as usize {
         score *= n;
         score %= r#mod as u64;
         sum += score;
 
-        l.push(score);
-        len += 1;
+        prefix_sums.push(sum);
 
         if last_seen_at[score as usize] != u16::MAX {
             let cycle_start = last_seen_at[score as usize] as usize;
-            let cycle_length = l.len() - cycle_start - 1;
+            let cycle_length = prefix_sums.len() - cycle_start - 2;
 
-            l.pop();
-            let r#loop = &l[cycle_start..];
-            let loop_sum = sum - score - l[..cycle_start].iter().sum::<u64>();
+            let loop_sum = sum - score - prefix_sums[cycle_start];
 
-            let remaining = exp as usize - len;
+            let remaining = exp as usize - prefix_sums.len() + 1;
             let full_cycles = remaining / cycle_length;
 
             sum += loop_sum * full_cycles as u64;
-
-            sum += r#loop
-                .iter()
-                .skip(1)
-                .take(remaining % cycle_length)
-                .sum::<u64>();
+            sum += prefix_sums[cycle_start + remaining % cycle_length + 1]
+                - prefix_sums[cycle_start]
+                - score;
 
             break;
         }
-        last_seen_at[score as usize] = l.len() as u16 - 1;
+        last_seen_at[score as usize] = prefix_sums.len() as u16 - 2;
     }
 
     sum
