@@ -1,7 +1,7 @@
 # /// script
 # requires-python = ">=3.11"
 # dependencies = [
-#     "argh==0.26.2",
+#     "argh==0.31.3",
 #     "python-dotenv==1.0.0",
 #     "requests==2.27.1",
 #     "termcolor==1.1.0",
@@ -133,7 +133,7 @@ def start_solve(problem_num: int) -> None:
 
 @aliases("sb")
 @in_root_dir
-def set_baseline(day: str, name: str = DEFAULT_BASELINE) -> None:
+def set_baseline(*, pattern: str = ".", name: str = DEFAULT_BASELINE) -> None:
     "Run a criterion benchmark, setting its results as the new baseline."
     run(
         (
@@ -142,7 +142,7 @@ def set_baseline(day: str, name: str = DEFAULT_BASELINE) -> None:
             "--bench",
             "criterion",
             "--",
-            day,
+            pattern,
             "--save-baseline",
             name,
             "--verbose",
@@ -152,7 +152,7 @@ def set_baseline(day: str, name: str = DEFAULT_BASELINE) -> None:
 
 @aliases("cmp")
 @in_root_dir
-def compare(day: str, name: str = DEFAULT_BASELINE) -> None:
+def compare(*, pattern: str = ".", name: str = DEFAULT_BASELINE) -> None:
     "Run a criterion benchmark, comparing its results to the saved baseline."
     run(
         (
@@ -161,7 +161,7 @@ def compare(day: str, name: str = DEFAULT_BASELINE) -> None:
             "--bench",
             "criterion",
             "--",
-            day,
+            pattern,
             "--baseline",
             name,
             "--verbose",
@@ -171,18 +171,18 @@ def compare(day: str, name: str = DEFAULT_BASELINE) -> None:
 
 @in_root_dir
 @aliases("cmp-stash")
-def compare_by_stashing(day: str, name: str = DEFAULT_BASELINE) -> None:
+def compare_by_stashing(*, pattern: str, name: str = DEFAULT_BASELINE) -> None:
     "Stash the current changes, set the baseline and then compare the new changes."
     run(("git", "stash", "push", "-m", "Stashing for benchmarking"))
-    set_baseline(day, name)
+    set_baseline(pattern=pattern, name=name)
     run(("git", "stash", "pop"))
-    compare(day, name)
+    compare(pattern=pattern, name=name)
 
 
 @in_root_dir
-def criterion(day: str) -> None:
+def criterion(*, pattern: str = ".") -> None:
     "Run a criterion benchmark, without caring about baselines."
-    run(("cargo", "bench", "--bench", "criterion", "--", day, "--verbose"))
+    run(("cargo", "bench", "--bench", "criterion", "--", pattern, "--verbose"))
 
 
 def main() -> None:
