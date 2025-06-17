@@ -103,12 +103,8 @@ fn do_insert(slab: &mut Slab<Node>, root: u16, rank: u16, symbol: u8) -> NonZero
 }
 
 fn height(slab: &Slab<Node>, root: u16) -> usize {
-    let left_height = slab[root as usize]
-        .left
-        .map_or(0, |l| height(slab, l.get()));
-    let right_height = slab[root as usize]
-        .right
-        .map_or(0, |r| height(slab, r.get()));
+    let left_height = slab[root as usize].left.map_or(0, |l| height(slab, l.get()));
+    let right_height = slab[root as usize].right.map_or(0, |r| height(slab, r.get()));
     1 + left_height.max(right_height)
 }
 
@@ -171,9 +167,7 @@ pub fn solve_part1() -> String {
     let mut left_tree_nodes = Slab::new();
     let mut right_tree_nodes = Slab::new();
 
-    let mut lines = include_str!("part1_input.txt")
-        .lines()
-        .map(Instruction::parse);
+    let mut lines = include_str!("part1_input.txt").lines().map(Instruction::parse);
 
     let Instruction::Add {
         id: _,
@@ -224,9 +218,7 @@ pub fn solve_part2() -> String {
     let mut left_tree_nodes = Slab::new();
     let mut right_tree_nodes = Slab::new();
 
-    let mut lines = include_str!("part2_input.txt")
-        .lines()
-        .map(Instruction::parse);
+    let mut lines = include_str!("part2_input.txt").lines().map(Instruction::parse);
 
     let Instruction::Add {
         id: _,
@@ -290,9 +282,7 @@ pub fn solve_part2() -> String {
 pub fn solve_part3() -> String {
     let mut nodes = Slab::new();
 
-    let mut lines = include_str!("part3_input.txt")
-        .lines()
-        .map(Instruction::parse);
+    let mut lines = include_str!("part3_input.txt").lines().map(Instruction::parse);
 
     let Instruction::Add {
         id: root_id,

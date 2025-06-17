@@ -1,7 +1,8 @@
 use std::hint::black_box;
 
-use criterion::{criterion_group, criterion_main, Criterion};
+use criterion::{Criterion, criterion_group, criterion_main};
 
+#[rustfmt::skip]
 macro_rules! problems {
     ($($problem:ident),*$(,)?) => {
         pub fn ec_benchmark_full(c: &mut Criterion) {

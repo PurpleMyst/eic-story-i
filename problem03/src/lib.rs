@@ -67,10 +67,7 @@ fn mod_inverse(a: i64, m: i64) -> i64 {
 
 /// Return time when all the snails are at the first row.
 fn crt(snails: &[Snail]) -> i64 {
-    let r_list = snails
-        .iter()
-        .map(|snail| snail.y0 % snail.period)
-        .collect::<Vec<_>>();
+    let r_list = snails.iter().map(|snail| snail.y0 % snail.period).collect::<Vec<_>>();
 
     let total_period = snails.iter().map(|snail| snail.period).product::<i64>();
 

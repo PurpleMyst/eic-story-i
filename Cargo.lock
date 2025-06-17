@@ -296,6 +296,7 @@ dependencies = [
 name = "problem01"
 version = "1.0.0"
 dependencies = [
+ "atoi",
  "rayon",
 ]
 
